@@ -2,7 +2,7 @@
 rm -rf release
 mkdir -p release
 
-cp -rf MyAvndEffect *.{hpp,cpp,txt,json} LICENSE release/
+cp -rf basic_model_addon *.{hpp,cpp,txt,json} LICENSE release/
 
-mv release score-addon-my-avnd-effect
-7z a score-addon-my-avnd-effect.zip score-addon-my-avnd-effect
+mv release score-addon-basic-model-addon
+7z a score-addon-basic-model-addon.zip score-addon-basic-model-addon
