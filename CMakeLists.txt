@@ -23,7 +23,6 @@ avnd_score_plugin_add(
     basic_model_addon/basic_model_addon.hpp
     basic_model_addon/basic_model_addonModel.hpp
     basic_model_addon/basic_model_addonModel.cpp
-    basic_model_addon/basic_model_addonUi.hpp
   TARGET basic_model_addon
   MAIN_CLASS basic_model_addon
   NAMESPACE Example
