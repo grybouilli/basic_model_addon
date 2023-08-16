@@ -6,6 +6,8 @@
 #include <halp/file_port.hpp>
 #include <ATen/core/ivalue.h>
 #include <torch/script.h>
+#include <iostream>
+
 namespace Example
 {
 
@@ -31,11 +33,22 @@ namespace Example
                 static consteval auto name() { return "in"; }
                 float value;
             } in;
-            struct : halp::file_port<"Traced model file"> {
+            struct : halp::file_port<"Traced model file", halp::mmap_file_view> {
                 void update(basic_model_addon& obj) {
                     obj.model_data.model_loaded = obj.load_model();
                 }
             } model_file;
+
+            struct : halp::lineedit<"Program", "">
+            {
+                halp_meta(language, "Python")
+
+                void update(basic_model_addon& obj)
+                {
+                    std::cerr << "in program : " << obj.inputs.program.value << std::endl;
+                }
+            } program;
+
         } inputs;
 
         struct
@@ -52,7 +65,7 @@ namespace Example
             model_data.model_loaded = false;
             model_data.model_loaded = load_model();
         }
-
+        
         bool load_model()
         {
             std::string filename { inputs.model_file.file.filename };
@@ -78,8 +91,6 @@ namespace Example
         // Defined in the .cpp
         void operator()(halp::tick t);
 
-        // UI is defined in another file to keep things clear.
-        struct ui;
     };
 
 }
